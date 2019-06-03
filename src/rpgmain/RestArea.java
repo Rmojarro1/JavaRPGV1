@@ -13,24 +13,27 @@ import javax.swing.JOptionPane;
  * @author gamef
  */
 public class RestArea {
-    private Character character; 
+    private final Character character; 
     private DataManager data; 
     
-    public RestArea(Character player, DataManager d)
+    public RestArea(Character character, DataManager d)
     {
-        character = new Character(player);
+        this.character = character;
         data = new DataManager(d); 
     }
     
-    public void intermission() throws FileNotFoundException
+    public boolean intermission() throws FileNotFoundException
     {
         boolean preparing = true; 
+        boolean continuePlay = true; 
         while (preparing == true)
         {
             String input; 
             int selection;
-            input = JOptionPane.showInputDialog("What would you like to do?"
-            + "\n 1. Visit shop" + "\n 2. Heal (10 g)" + "\n 3. Save and exit");
+            input = JOptionPane.showInputDialog("HP: "+ character.getHP()+ 
+                    "\n Money:" + character.getMoney()+ "\nWhat would you like to do?"
+            + "\n 1. Visit shop" + "\n 2. Heal (10 g)" + "\n 3. Save and exit"
+            + "\n 4. Continue");
             selection = Integer.parseInt(input); 
             if (selection == 1)
             {
@@ -43,6 +46,11 @@ public class RestArea {
             else if (selection == 3)
             {
                 restExit(); 
+                continuePlay = false; 
+                preparing = false; 
+            }
+            else if (selection == 4)
+            {
                 preparing = false; 
             }
             else 
@@ -50,6 +58,7 @@ public class RestArea {
                 System.out.println("Not valid!"); 
             }
         }
+        return continuePlay; 
     }
     
     public void healPlayer()
@@ -59,11 +68,13 @@ public class RestArea {
         {
             character.setHP(character.getMax()); 
             JOptionPane.showMessageDialog(null, "What a wonderful drink!");
-            character.setMoney((character.getMoney() - 10));   
+            character.setMoney(-10);   
+            System.out.println("Money: " + character.getMoney());
         }
         else 
         {
             JOptionPane.showMessageDialog(null, "Not enough cash!");
+            System.out.println("Money: " + character.getMoney());
         }
         System.out.println("HP"+ character.getHP());
         System.out.println("Cash" + character.getMoney());  
@@ -77,19 +88,43 @@ public class RestArea {
         
         while(shopping == true)
         {
-            input = JOptionPane.showInputDialog("What would you like to buy?" + "\n "
-                + "1. Wooden Sword (Attack +3)" + "\n 2. Shield (HP + 5)" + 
-                    "\n 0. Exit");
+            input = JOptionPane.showInputDialog("What would you like to buy?" + 
+                    "\n All 5 gold!"+  "\n Money: " + character.getMoney()+ 
+                    "\n 1. Wooden Sword (Attack +1)" + 
+                    "\n 2. Shield (HP + "
+                    + "5)" + "\n 0. Exit");
             selection = Integer.parseInt(input); 
             if (selection == 1)
             {
-                character.setAttack(3); 
-                System.out.println(character.getAttack()); 
+                if (character.getMoney() >= 5)
+                {
+                    character.setMoney(-5);
+                    character.setAttack(1); 
+                    System.out.println("Attack: "+character.getAttack());
+                    System.out.println("Money: " + character.getMoney());
+                }
+                else
+                {
+                    System.out.println("Not enough cash!");
+                    System.out.println("Money: " + character.getMoney());
+                }
+                 
             }
             else if (selection == 2)
             {
-                character.setMax(5);
-                System.out.println(character.getMax());
+                if(character.getMoney() >= 5)
+                {
+                    character.setMoney(-5); 
+                    character.setMax(5);
+                    System.out.println("Max HP: "+ character.getMax());
+                    System.out.println("Money: " + character.getMoney());
+                }
+                else 
+                {
+                    System.out.println("Not enough cash!");
+                    System.out.println("Money: " + character.getMoney());
+                }
+                
             }
             else if (selection == 0)
             {
@@ -105,7 +140,7 @@ public class RestArea {
     
     public void restExit() throws FileNotFoundException
     {
-        character.setHP(character.getMax());
+        System.out.println("HP: "+ character.getHP());
         data.saveData(character.getName(), character.getMax(), character.getHP()
                 , character.getAttack(), character.getMoney());
     }

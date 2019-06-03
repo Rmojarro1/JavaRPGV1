@@ -14,6 +14,7 @@ public class Enemy {
     private int maxHP; 
     private int hp; 
     private int attack; 
+    private int drop; 
     
     public Enemy()
     {
@@ -21,6 +22,7 @@ public class Enemy {
         maxHP = 5; 
         hp = maxHP; 
         attack = 1; 
+        drop = 10; 
     }
     
     public Enemy(Enemy copy)
@@ -29,6 +31,7 @@ public class Enemy {
         maxHP = copy.maxHP; 
         hp = copy.hp; 
         attack = copy.attack; 
+        drop = copy.drop; 
     }
     
     public int getHP()
@@ -51,11 +54,27 @@ public class Enemy {
         return maxHP; 
     }
     
-    public void set(String enemyName, int enemyMaxHP, int enemyHP, int enemyAttack)
+    public int getDrop()
+    {
+        return drop; 
+    }
+    
+    public void set(String enemyName, int enemyMaxHP, int enemyHP, int enemyAttack,
+            int newDrop)
     {
         name = enemyName; 
         maxHP = enemyMaxHP; 
         hp = enemyHP; 
-        attack = enemyAttack; 
+        attack = enemyAttack;
+        drop = newDrop; 
+    }
+    
+    public void type2()
+    {
+        name = "Gorgon"; 
+        maxHP = 10; 
+        hp = maxHP; 
+        attack = 2; 
+        drop = 10; 
     }
 }

@@ -13,16 +13,16 @@ import javax.swing.JOptionPane;
  */
 public class BattleManager {
 
-    private Character character; 
+    private final Character character; 
     private Enemy enemy; 
     
-    public BattleManager(Character player, Enemy ene)
+    public BattleManager(Character character, Enemy ene)
     {
-        character = new Character(player); 
+        this.character = character; 
         enemy = new Enemy(ene); 
     }
     
-    public void battle()
+    public boolean battle()
     {
         String input; 
         int action; 
@@ -30,6 +30,10 @@ public class BattleManager {
         int enemyHP = enemy.getHP(); 
         boolean playerAlive = true; 
         boolean enemyAlive = true; 
+        if (playerHP > 5)
+        {
+            enemy.type2();
+        }
         JOptionPane.showMessageDialog(null, "A " + enemy.getName() + " draws near!"); 
         while (playerAlive == true && enemyAlive == true)
         {
@@ -46,7 +50,8 @@ public class BattleManager {
              if (action == 1)
              {
                  enemyHP -= character.getAttack(); 
-                 System.out.println(enemy.getName()+ ": " + enemyHP + "/" + enemy.getMax()); 
+                 System.out.println(enemy.getName()+ ": " + enemyHP + "/" + 
+                         enemy.getMax()); 
              }
              if (action == 2)
              {
@@ -66,8 +71,8 @@ public class BattleManager {
                 if (action == 2)
                 {
                     playerHP -= (enemy.getAttack() - 1); 
-                    System.out.println(character.getName() + ": " + playerHP + "/" + 
-                            character.getMax()); 
+                    System.out.println(character.getName() + ": " + playerHP + 
+                            "/" + character.getMax()); 
                 }
                 else
                 {
@@ -83,7 +88,10 @@ public class BattleManager {
                 }
              }
         }
-        System.out.println("It works!");
+        character.setHP(playerHP); 
+        character.setMoney(enemy.getDrop());
+        System.out.println(enemy.getName() + " dropped "+ enemy.getDrop() + " gold!");
+        return playerAlive; 
     }
 
 }

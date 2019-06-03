@@ -30,6 +30,7 @@ public class RPGMain {
 
         String input;
         int action; 
+        boolean canPlay = true; 
         Character player = new Character(); 
         
         input = JOptionPane.showInputDialog("Welcome to the RPG game!" + 
@@ -52,21 +53,15 @@ public class RPGMain {
         player.set(data.getName(), data.getStats());
         Enemy enemy1 = new Enemy(); 
         BattleManager battle1 = new BattleManager(player, enemy1); 
-        battle1.battle();
-        RestArea rest = new RestArea(player, data); 
-        //rest.healPlayer();
-        rest.intermission();
-
+        while(canPlay == true)
+        {
+            canPlay = battle1.battle(); 
+            RestArea rest = new RestArea(player, data); 
+            canPlay = rest.intermission();
+        }
+        System.out.println("Finished!"); 
         
-//         
-//        System.out.println("You won!");
-//        playerMoney += 20; 
-//        data.saveData(playerName, playerMaxHP, playerHP, playerAttack, 
-//                playerMoney);
-//        RestArea rest = new RestArea(); 
-//        playerHP = rest.healPlayer(playerMoney, playerMaxHP, playerHP);
-//        System.out.println(playerHP); 
-//        System.out.println("Money" + playerMoney);
+
        
     }
     

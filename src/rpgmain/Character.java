@@ -57,9 +57,9 @@ public class Character {
         money = stats[3];
     }
     
-    public void setHP(int current)
+    public void setHP(int newHP)
     {
-        hp = current; 
+        hp= newHP; 
     }
     
     public int getHP()
@@ -89,7 +89,7 @@ public class Character {
     
     public void setMoney(int m)
     {
-        money = m; 
+        money += m; 
     }
     
 
