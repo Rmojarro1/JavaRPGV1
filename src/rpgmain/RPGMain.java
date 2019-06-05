@@ -53,7 +53,7 @@ public class RPGMain {
             RestArea rest = new RestArea(player, data); 
             if (canPlay == true)
             {
-                canPlay = rest.intermission();
+                canPlay = rest.intermission(); 
             }
         }      
     }
