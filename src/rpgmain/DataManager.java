@@ -132,6 +132,6 @@ public class DataManager {
         stats[1] = playerHP; 
         stats[2] = playerAttack; 
         stats[3] = playerMoney; 
-        return stats; 
+        return stats;  
     }
 }
