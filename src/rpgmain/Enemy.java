@@ -58,7 +58,7 @@ public class Enemy {
      */
     public int getAttack()
     {
-        return attack; 
+        return attack;  
     }
     
     /**
