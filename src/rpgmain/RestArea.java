@@ -22,6 +22,15 @@ public class RestArea {
         data = new DataManager(d); 
     }
     
+    /**
+     * Repeats a loop for all of the 
+     * actions that the player is able to do
+     * while inbetween battles. Returns a boolean 
+     * that determines if the loop in main will
+     * continue or not. 
+     * @return
+     * @throws FileNotFoundException
+     */
     public boolean intermission() throws FileNotFoundException
     {
         boolean preparing = true; 
@@ -31,9 +40,12 @@ public class RestArea {
             String input; 
             int selection;
             input = JOptionPane.showInputDialog("HP: "+ character.getHP()+ 
-                    "\n Money:" + character.getMoney()+ "\nWhat would you like to do?"
-            + "\n 1. Visit shop" + "\n 2. Heal (10 g)" + "\n 3. Save and exit"
-            + "\n 4. Continue");
+                    "\n Money:" + character.getMoney()+ "\n Battles fought "
+                    + "today: " + (character.getRow() + 1) +
+                    "\nWhat would you like to do?"
+                    + "\n 1. Visit shop" + "\n 2. Heal (10 g)" + 
+                    "\n 3. Save and exit" + "\n 4. Save and continue" +
+                    "\n 5. Continue");
             selection = Integer.parseInt(input); 
             if (selection == 1)
             {
@@ -45,22 +57,33 @@ public class RestArea {
             }
             else if (selection == 3)
             {
-                restExit(); 
+                rest(); 
                 continuePlay = false; 
                 preparing = false; 
             }
             else if (selection == 4)
             {
+                rest(); 
+                preparing = false; 
+                character.setRow(0); 
+            }
+            else if (selection == 5)
+            {
                 preparing = false; 
             }
             else 
             {
-                System.out.println("Not valid!"); 
+                JOptionPane.showMessageDialog(null, "Not valid!"); 
             }
         }
         return continuePlay; 
     }
     
+    /**
+     * Allows the player to be fully restored
+     * to full health if they have enough gold. 
+     * Otherwise, they are denied healing. 
+     */
     public void healPlayer()
     {
         JOptionPane.showMessageDialog(null, "Let's get you patched up!"); 
@@ -80,6 +103,11 @@ public class RestArea {
         System.out.println("Cash" + character.getMoney());  
     }
     
+    /**
+     * Allows the player to choose between
+     * upgrades for their attack and maximum
+     * health by spending gold. 
+     */
     public void shop()
     {
         String input; 
@@ -100,13 +128,16 @@ public class RestArea {
                 {
                     character.setMoney(-5);
                     character.setAttack(1); 
-                    System.out.println("Attack: "+character.getAttack());
-                    System.out.println("Money: " + character.getMoney());
+                    JOptionPane.showMessageDialog(null, "Attack: " + 
+                            character.getAttack());
+                    JOptionPane.showMessageDialog(null, "Money: " + 
+                            character.getMoney());
                 }
                 else
                 {
-                    System.out.println("Not enough cash!");
-                    System.out.println("Money: " + character.getMoney());
+                    JOptionPane.showMessageDialog(null, "Not enough cash!");
+                    JOptionPane.showMessageDialog(null, "Money: " + 
+                            character.getMoney());
                 }
                  
             }
@@ -116,13 +147,16 @@ public class RestArea {
                 {
                     character.setMoney(-5); 
                     character.setMax(5);
-                    System.out.println("Max HP: "+ character.getMax());
-                    System.out.println("Money: " + character.getMoney());
+                    JOptionPane.showMessageDialog(null, "Max HP: "+ 
+                            character.getMax());
+                    JOptionPane.showMessageDialog(null, "Money: " + 
+                            character.getMoney());
                 }
                 else 
                 {
-                    System.out.println("Not enough cash!");
-                    System.out.println("Money: " + character.getMoney());
+                    JOptionPane.showMessageDialog(null, "Not enough cash!");
+                    JOptionPane.showMessageDialog(null, "Money: " + 
+                            character.getMoney());
                 }
                 
             }
@@ -132,16 +166,25 @@ public class RestArea {
             }
             else
             {
-                System.out.println("Not valid!");
+                JOptionPane.showMessageDialog(null, "Not valid!");
             }
         }
         
     }
     
-    public void restExit() throws FileNotFoundException
+    /**
+     * Restores the player health back to 
+     * maximum, without having to spend gold, 
+     * and saves calls the saveData method. 
+     * 
+     * @throws FileNotFoundException
+     */
+    public void rest() throws FileNotFoundException
     {
-        System.out.println("HP: "+ character.getHP());
+        character.setHP(character.getMax());
+        JOptionPane.showMessageDialog(null, "HP: "+ character.getHP());
         data.saveData(character.getName(), character.getMax(), character.getHP()
                 , character.getAttack(), character.getMoney());
     }
+    
 }
