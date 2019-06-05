@@ -45,7 +45,7 @@ public class BattleManager {
         }
         else if (character.getRow() > 1)
         {
-            enemy.type2();
+            enemy.type2(); 
         }
         int playerHP = character.getHP(); 
         int enemyHP = enemy.getHP(); 
