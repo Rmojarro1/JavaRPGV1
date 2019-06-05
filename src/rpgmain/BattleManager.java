@@ -22,6 +22,13 @@ public class BattleManager {
         enemy = new Enemy(ene); 
     }
     
+    /**
+     * Plays out a battle between the player
+     * and an enemy. Returns a true boolean 
+     * upon completion if the player is successful
+     * and a false one if they lose. 
+     * @return
+     */
     public boolean battle()
     {
         String input; 
@@ -30,7 +37,7 @@ public class BattleManager {
         int enemyHP = enemy.getHP(); 
         boolean playerAlive = true; 
         boolean enemyAlive = true; 
-        if (playerHP > 5)
+        if (character.getRow() >= 1)
         {
             enemy.type2();
         }
@@ -50,47 +57,47 @@ public class BattleManager {
              if (action == 1)
              {
                  enemyHP -= character.getAttack(); 
-                 System.out.println(enemy.getName()+ ": " + enemyHP + "/" + 
-                         enemy.getMax()); 
+                 System.out.println(); 
+                 JOptionPane.showMessageDialog(null, enemy.getName()+ ": " 
+                         + enemyHP + "/" + enemy.getMax()); 
              }
              if (action == 2)
              {
-                 System.out.println("Defending!"); 
+                 JOptionPane.showMessageDialog(null, "Defending!"); 
              }
              
              if (enemyHP <= 0)
              {
                  enemyAlive = false;
-                 System.out.println(enemy.getName() + " beaten!");
+                 JOptionPane.showMessageDialog(null, enemy.getName() + " beaten!");
              }
              
              else
              {
-                 System.out.println(enemy.getName() + " attacks!");
-             
+                 JOptionPane.showMessageDialog(null, enemy.getName() + " attacks!");
                 if (action == 2)
                 {
                     playerHP -= (enemy.getAttack() - 1); 
-                    System.out.println(character.getName() + ": " + playerHP + 
-                            "/" + character.getMax()); 
+                    JOptionPane.showMessageDialog(null, character.getName() + 
+                            ": " + playerHP + "/" + character.getMax()); 
                 }
                 else
                 {
                     playerHP -= enemy.getAttack(); 
-                    System.out.println(character.getName() + ":" + playerHP + "/" +
-                            character.getMax());
+                    JOptionPane.showMessageDialog(null, character.getName() + 
+                            ":" + playerHP + "/" + character.getMax());
                 }
                 if (playerHP <= 0)
                 {
                     playerAlive = false; 
-                    System.out.println("You died!");
-                    System.exit(0);
+                    JOptionPane.showMessageDialog(null, "You died!");
                 }
              }
         }
         character.setHP(playerHP); 
         character.setMoney(enemy.getDrop());
-        System.out.println(enemy.getName() + " dropped "+ enemy.getDrop() + " gold!");
+        JOptionPane.showMessageDialog(null, enemy.getName() + " dropped "+ 
+                enemy.getDrop() + " gold!");
         return playerAlive; 
     }
 

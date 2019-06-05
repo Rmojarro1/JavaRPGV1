@@ -37,6 +37,14 @@ public class DataManager {
         playerAttack = copy.playerAttack; 
         playerMoney = copy.playerMoney; 
     }
+
+    /**
+     * Creates a save file for the player
+     * with default values for all fields. 
+     * The user is also prompted to enter
+     * a name for their character.
+     * @throws FileNotFoundException
+     */
     public void newSaveData() throws FileNotFoundException
     { 
         String name; 
@@ -55,6 +63,17 @@ public class DataManager {
         outputFile.close();
     }
     
+    /**
+     * Writes all of the current stats to the 
+     * Data.txt file and modifies the current stats
+     * in this class to match. 
+     * @param name
+     * @param maxHP
+     * @param currentHP
+     * @param attack
+     * @param money
+     * @throws FileNotFoundException
+     */
     public void saveData(String name, int maxHP, int currentHP, 
             int attack, int money) throws FileNotFoundException
     { 
@@ -74,6 +93,12 @@ public class DataManager {
         playerMoney = money; 
     }
     
+    /**
+     * Reads data from the file and 
+     * modifies the stat variables to 
+     * match. 
+     * @throws FileNotFoundException
+     */
     public void loadData() throws FileNotFoundException
     {
         File file = new File("Data.txt"); 
@@ -86,11 +111,20 @@ public class DataManager {
         inputFile.close(); 
     }
     
+    /**
+     * Returns the player name. 
+     * @return
+     */
     public String getName()
     {
         return playerName; 
     }
     
+    /**
+     * Returns each of the stats
+     * in an array form. 
+     * @return
+     */
     public int[] getStats()
     {
         int[] stats = new int[4]; 

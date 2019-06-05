@@ -34,11 +34,19 @@ public class Enemy {
         drop = copy.drop; 
     }
     
+    /**
+     * Returns the current enemy health.
+     * @return
+     */
     public int getHP()
     {
         return hp; 
     }
     
+    /**
+     * Returns the enemy name. 
+     * @return
+     */
     public String getName()
     {
         return name; 

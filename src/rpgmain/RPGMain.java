@@ -26,11 +26,10 @@ public class RPGMain {
     public static void main(String[] args) throws FileNotFoundException {
         // TODO code application logic here
         
-        DataManager data = new DataManager(); 
-
         String input;
         int action; 
         boolean canPlay = true; 
+        DataManager data = new DataManager();
         Character player = new Character(); 
         
         input = JOptionPane.showInputDialog("Welcome to the RPG game!" + 
@@ -57,7 +56,10 @@ public class RPGMain {
         {
             canPlay = battle1.battle(); 
             RestArea rest = new RestArea(player, data); 
-            canPlay = rest.intermission();
+            if (canPlay == true)
+            {
+                canPlay = rest.intermission();
+            }
         }
         System.out.println("Finished!"); 
         
