@@ -41,7 +41,7 @@ public class RestArea {
             int selection;
             input = JOptionPane.showInputDialog("HP: "+ character.getHP()+ 
                     "\n Money:" + character.getMoney()+ "\n Battles fought "
-                    + "today: " + (character.getRow() + 1) +
+                    + "today: " + (character.getRow()) +
                     "\nWhat would you like to do?"
                     + "\n 1. Visit shop" + "\n 2. Heal (10 g)" + 
                     "\n 3. Save and exit" + "\n 4. Save and continue" +
@@ -70,6 +70,7 @@ public class RestArea {
             else if (selection == 5)
             {
                 preparing = false; 
+                character.setRow((character.getRow() + 1));
             }
             else 
             {
@@ -92,15 +93,17 @@ public class RestArea {
             character.setHP(character.getMax()); 
             JOptionPane.showMessageDialog(null, "What a wonderful drink!");
             character.setMoney(-10);   
-            System.out.println("Money: " + character.getMoney());
+            JOptionPane.showMessageDialog(null, "Money: " + character.getMoney()
+            );
         }
         else 
         {
             JOptionPane.showMessageDialog(null, "Not enough cash!");
-            System.out.println("Money: " + character.getMoney());
+            JOptionPane.showMessageDialog(null, "Money: " + character.getMoney()
+            );
         }
-        System.out.println("HP"+ character.getHP());
-        System.out.println("Cash" + character.getMoney());  
+        JOptionPane.showMessageDialog(null, "HP"+ character.getHP());
+        JOptionPane.showMessageDialog(null, "Cash" + character.getMoney());  
     }
     
     /**
@@ -182,7 +185,6 @@ public class RestArea {
     public void rest() throws FileNotFoundException
     {
         character.setHP(character.getMax());
-        JOptionPane.showMessageDialog(null, "HP: "+ character.getHP());
         data.saveData(character.getName(), character.getMax(), character.getHP()
                 , character.getAttack(), character.getMoney());
     }

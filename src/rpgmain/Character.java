@@ -15,7 +15,7 @@ public class Character {
     private int hp; 
     private int attack; 
     private int money; 
-    private int row; 
+    private int row = 1; 
     
     public Character()
     {

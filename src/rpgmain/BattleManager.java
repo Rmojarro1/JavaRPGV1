@@ -33,14 +33,22 @@ public class BattleManager {
     {
         String input; 
         int action; 
-        int playerHP = character.getHP(); 
-        int enemyHP = enemy.getHP(); 
         boolean playerAlive = true; 
         boolean enemyAlive = true; 
-        if (character.getRow() >= 1)
+        if (character.getRow() > 3)
+        {
+            enemy.type4(); 
+        }
+        else if (character.getRow() > 2)
+        {
+            enemy.type3(); 
+        }
+        else if (character.getRow() > 1)
         {
             enemy.type2();
         }
+        int playerHP = character.getHP(); 
+        int enemyHP = enemy.getHP(); 
         JOptionPane.showMessageDialog(null, "A " + enemy.getName() + " draws near!"); 
         while (playerAlive == true && enemyAlive == true)
         {
@@ -58,12 +66,14 @@ public class BattleManager {
              {
                  enemyHP -= character.getAttack(); 
                  System.out.println(); 
-                 JOptionPane.showMessageDialog(null, enemy.getName()+ ": " 
-                         + enemyHP + "/" + enemy.getMax()); 
+                 JOptionPane.showMessageDialog(null,"You strike the " + 
+                         enemy.getName() + "!" +  "\n" +  enemy.getName()
+                         + ": " + enemyHP + "/" + enemy.getMax()); 
              }
              if (action == 2)
              {
-                 JOptionPane.showMessageDialog(null, "Defending!"); 
+                 JOptionPane.showMessageDialog(null, character.getName() +
+                         " defends!"); 
              }
              
              if (enemyHP <= 0)
@@ -74,30 +84,47 @@ public class BattleManager {
              
              else
              {
-                 JOptionPane.showMessageDialog(null, enemy.getName() + " attacks!");
+                 JOptionPane.showMessageDialog(null, "The "+ enemy.getName() + 
+                         " attacks!");
                 if (action == 2)
                 {
-                    playerHP -= (enemy.getAttack() - 1); 
+                    playerHP -= ((enemy.getAttack() / 2)); 
                     JOptionPane.showMessageDialog(null, character.getName() + 
+                            " blocks the strike!"+ "\n"+ character.getName() + 
                             ": " + playerHP + "/" + character.getMax()); 
                 }
                 else
                 {
                     playerHP -= enemy.getAttack(); 
                     JOptionPane.showMessageDialog(null, character.getName() + 
+                            " is hit!" + "\n" + character.getName() + 
                             ":" + playerHP + "/" + character.getMax());
                 }
                 if (playerHP <= 0)
                 {
                     playerAlive = false; 
-                    JOptionPane.showMessageDialog(null, "You died!");
+                    JOptionPane.showMessageDialog(null, character.getName() +
+                            " died!");
                 }
              }
         }
         character.setHP(playerHP); 
-        character.setMoney(enemy.getDrop());
-        JOptionPane.showMessageDialog(null, enemy.getName() + " dropped "+ 
-                enemy.getDrop() + " gold!");
+        if (character.getHP() > 0)
+        {
+            if (character.getRow() > 1)
+            {
+                character.setMoney((enemy.getDrop() * character.getRow()));
+                JOptionPane.showMessageDialog(null, enemy.getName() + " dropped "+ 
+                    (enemy.getDrop() * character.getRow()) + " gold!");
+            }
+            else
+            {
+                character.setMoney(enemy.getDrop());
+                JOptionPane.showMessageDialog(null, enemy.getName() + " dropped "
+                        + enemy.getDrop() + " gold!");
+            }
+        }
+
         return playerAlive; 
     }
 
