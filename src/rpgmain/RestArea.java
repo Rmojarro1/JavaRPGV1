@@ -111,7 +111,7 @@ public class RestArea {
      * upgrades for their attack and maximum
      * health by spending gold. 
      */
-    public void shop()
+    public void shop() 
     {
         String input; 
         int selection; 
